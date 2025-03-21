@@ -1,3 +1,11 @@
+.h1 {
+    font: Calibri;
+}
+
+.h2 {
+    font: Calibri;
+}
+
 .top-bar {
     display: flex;
     align-items: center;
