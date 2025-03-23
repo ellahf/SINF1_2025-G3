@@ -1,11 +1,3 @@
-.h1 {
-    font-family: Calibri;
-}
-
-.h2 {
-    font-family: Calibri;
-}
-
 .top-bar {
     display: flex;
     align-items: center;
@@ -106,8 +98,52 @@
 
 .below-navbar button {
     font-family: Calibri;
+    background-color: #0055aa;
 }
 
 .below-navbar h2 {
     font-family: Calibri;
+}
+
+.colored-line {
+    border: none;
+    height: 4px; /* Espessura da linha */
+    background-color: rgb(104, 109, 119); /* Cor da linha */
+    margin: 20px 0;
+}
+
+.collection-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.collection-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.collection-item {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+
+.collection-item img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.collection-item h3 {
+    margin: 10px 0 5px;
+}
+
+.collection-item p {
+    font-size: 14px;
+    color: #555;
 }
