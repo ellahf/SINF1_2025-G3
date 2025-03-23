@@ -3,7 +3,7 @@
 }
 
 .h2 {
-    font: Calibri;
+    font-family: Calibri;
 }
 
 .top-bar {
@@ -22,11 +22,13 @@
 
 .search-bar {
     margin-left: auto; /* Pushes the search bar to the right */
+    font-family: Calibri;
 }
 
 .search-bar input {
     padding: 5px;
     width: 200px;
+    font-family: Calibri;
 }
 
 .search-bar button {
@@ -35,11 +37,13 @@
     color: white;
     border: none;
     cursor: pointer;
+    font-family: Calibri;
 }
 
 .navbar {
     background-color: #75b4ef; 
     padding: 10px 0;
+    font-family: Calibri;
 }
 
 .nav-links {
@@ -97,4 +101,9 @@
 /* Show dropdown on hover */
 .nav-item:hover .dropdown-menu {
     display: block;
+}
+
+.below-navbar a {
+    font-family: Calibri;
+    margin-left: auto;
 }
