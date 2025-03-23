@@ -11,7 +11,7 @@
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo">Collector's Portal</div>
+                <div class="logo">Portal do Colecionador</div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search...">
                     <button>Search</button>
@@ -40,8 +40,8 @@
 
         <main>
             <div class="below-navbar">
-                <h2>Bem-vindo</h2>
-                <a href="collections.html" class="button">Ver coleções</a>
+                <h1>Bem-vindo</h1>
+                <button href="collections.html" class="button-collection">Ver coleções</button>
             </div>
             <hr class="colored-line">
         </main>
@@ -72,11 +72,25 @@
                 
             </div>
             
-        </section>
-        
-        <footer>
-            <p>&copy; 2025 Collector's Portal</p>
-        </footer>
+            <!-- Botão para abrir o popup -->
+            <button id="openPopupBtn" class="button-new-collection">Criar nova coleção</button>
+
+            <!-- O Popup -->
+            <div id="popupForm" class="popup">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Nova Coleção</h2>
+                    <form id="collectionForm">
+                        <label for="collectionName">Nome da Coleção:</label>
+                        <input type="text" id="collectionName" required>
+
+                        <label for="collectionImage">Imagem (URL ou upload):</label>
+                        <input type="text" id="collectionImage" placeholder="URL da imagem">
+                        
+                        <button type="submit">Adicionar</button>
+                    </form>
+                </div>
+            </div>
         
         <script src="../java/scrip.js"></script>
     </body> 
