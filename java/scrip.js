@@ -1,59 +1,99 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.getElementById("popupForm");
-    const openPopupBtn = document.getElementById("openPopupBtn");
-    const closePopupBtn = document.querySelector(".close-btn");
+// Função para abrir o pop-up
+function abrirPopup() {
+    document.getElementById("popupForm").style.display = "flex";
+}
 
-    // Abrir o popup ao clicar no botão
-    openPopupBtn.addEventListener("click", function () {
-        popup.style.display = "flex";
-    });
+// Função para fechar o pop-up
+function fecharPopup() {
+    document.getElementById("popupForm").style.display = "none";
+}
 
-    // Fechar o popup ao clicar no botão "X"
-    closePopupBtn.addEventListener("click", function () {
-        popup.style.display = "none";
-    });
+// Evento para abrir o pop-up ao clicar no botão
+document.getElementById("openPopupBtn").addEventListener("click", abrirPopup);
 
-    // Fechar o popup se o usuário clicar fora do conteúdo
-    window.addEventListener("click", function (event) {
-        if (event.target === popup) {
-            popup.style.display = "none";
-        }
-    });
+// Evento para fechar o pop-up ao clicar no botão "X"
+document.querySelector(".close-btn").addEventListener("click", fecharPopup);
 
-    // Evento para adicionar a coleção
-    document.getElementById("collectionForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Impede o recarregamento da página
-
-        const name = document.getElementById("collectionName").value;
-        const image = document.getElementById("collectionImage").value;
-
-        if (name) {
-            adicionarColecao(name, image);
-            popup.style.display = "none"; // Fechar o popup após adicionar
-        }
-    });
+// Fechar o pop-up se o usuário clicar fora dele
+window.addEventListener("click", function (event) {
+    if (event.target.id === "popupForm") {
+        fecharPopup();
+    }
 });
 
-// Função para adicionar uma nova coleção à lista
+// Evento para adicionar coleção ao clicar no botão "Adicionar"
+document.getElementById("collectionForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Impede o recarregamento da página
+
+    const nome = document.getElementById("collectionName").value;
+    const imagem = document.getElementById("collectionImage").value;
+
+    if (nome) {
+        adicionarColecao(nome, imagem);
+        fecharPopup(); // Fecha o pop-up após adicionar
+    }
+});
+
+// Função para adicionar nova coleção à lista
 function adicionarColecao(nome, imagem) {
     const lista = document.getElementById("collection-list");
-
-    // Criar novo item
-    const novoItem = document.createElement("li");
+    const item = document.createElement("li");
     const link = document.createElement("a");
+
     link.href = `collection.html?name=${nome}`;
     link.textContent = nome;
 
-    // Adicionar imagem se houver
     if (imagem) {
         const img = document.createElement("img");
         img.src = imagem;
         img.alt = nome;
         img.style.width = "50px";
         img.style.marginRight = "10px";
-        novoItem.appendChild(img);
+        item.appendChild(img);
     }
 
-    novoItem.appendChild(link);
-    lista.appendChild(novoItem);
+    item.appendChild(link);
+    lista.appendChild(item);
 }
+
+// Configuração do slider
+document.addEventListener("DOMContentLoaded", function () {
+    const sliderContainer = document.querySelector(".slider-container");
+    const slider = document.querySelector(".slider");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let posicao = 0; // Posição inicial
+    const larguraItem = slider.querySelector(".item").offsetWidth + 20; // Pega a largura de um item + margem
+
+    // Verifica a largura total do slider
+    function atualizarBotoes() {
+        nextBtn.style.display = (posicao >= slider.scrollWidth - sliderContainer.clientWidth) ? "none" : "block";
+        prevBtn.style.display = (posicao <= 0) ? "none" : "block";
+    }
+
+    // Função para mover o slider para frente
+    function moverParaFrente() {
+        if (posicao < slider.scrollWidth - sliderContainer.clientWidth) {
+            posicao += larguraItem * 4; // Move 4 itens
+            slider.style.transform = `translateX(-${posicao}px)`;
+            atualizarBotoes();
+        }
+    }
+
+    // Função para mover o slider para trás
+    function moverParaTras() {
+        if (posicao > 0) {
+            posicao -= larguraItem * 4; // Move 4 itens para trás
+            slider.style.transform = `translateX(-${posicao}px)`;
+            atualizarBotoes();
+        }
+    }
+
+    // Adiciona eventos aos botões
+    nextBtn.addEventListener("click", moverParaFrente);
+    prevBtn.addEventListener("click", moverParaTras);
+
+    // Atualiza os botões ao carregar a página
+    atualizarBotoes();
+});
