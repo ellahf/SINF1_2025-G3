@@ -18,22 +18,45 @@
             </div>
         </header>
 
-        <section class="collection-slider">
-            <h2>Miniaturas Locomotivas</h2>
-            <div class="slider-container">
-                <button id="prevBtn" class="nav-btn">&#10094;</button> <!-- Seta Esquerda -->
-                <div class="slider">
-                    <div class="slide"><img src="../imagens/locomotiva1.jpg" alt="Locomotiva 1"></div>
-                    <div class="slide"><img src="../imagens/locomotiva2.jpg" alt="Locomotiva 2"></div>
-                    <div class="slide"><img src="../imagens/locomotiva3.jpg" alt="Locomotiva 3"></div>
-                    <div class="slide"><img src="../imagens/locomotiva2.jpg" alt="Locomotiva 2"></div>
-                    <div class="slide"><img src="../imagens/locomotiva3.jpg" alt="Locomotiva 3"></div>
-                    <div class="slide"><img src="../imagens/locomotiva1.jpg" alt="Locomotiva 1"></div>
-                </div>
-                <button id="nextBtn" class="nav-btn">&#10095;</button> <!-- Seta Direita -->
+        <!-- Botão para abrir o popup -->
+        <button id="openPopupBtn" class="button-new-collection">Criar nova coleção</button>
+
+        <!-- O Popup -->
+        <div id="popupForm" class="popup">
+            <div class="popup-content">
+                <span class="close-btn">&times;</span>
+                <h2>Nova Coleção</h2>
+                <form id="collectionForm">
+                    <label for="collectionName">Nome da Coleção:</label>
+                    <input type="text" id="collectionName" required>
+
+                    <label for="collectionImage">Imagem (URL ou upload):</label>
+                    <input type="text" id="collectionImage" placeholder="URL da imagem">
+                    
+                    <button type="submit">Adicionar</button>
+                </form>
             </div>
-        </section>
+        </div>
+
+        <div class="button-collections">
+            <a href="colecoes/miniaturasLocomotivas.html" class="collection-btn" style="background-image: url('../imagens/locomotiva1.jpg');">
+                <span>Miniaturas Locomotivas</span>
+            </a>
+            <a href="colecoes/miniaturasAuto.html" class="collection-btn" style="background-image: url('../imagens/carros.jpg');">
+                <span>Miniaturas Automotivas</span>
+            </a>
+            <a href="colecoes/moedas.html" class="collection-btn" style="background-image: url('../imagens/carros.jpg');">
+                <span>Moedas</span>
+            </a>
+            <a href="colecoes/selos.html" class="collection-btn" style="background-image: url('../imagens/carros.jpg');">
+                <span>Selos</span>
+            </a>
+            <a href="colecoes/comicBooks.html" class="collection-btn" style="background-image: url('../imagens/carros.jpg');">
+                <span>Comic Books</span>
+            </a>
+        </div>
         
+        <script src="../java/scrip.js"></script>
     </body>
 
 </html>

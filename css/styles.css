@@ -220,58 +220,44 @@ button {
 }
 
 button:hover {
-    background-color: #005f73;
+    background-color: #008CBA;
 }
 
-.collection-slider {
-    text-align: center;
-    padding: 20px;
+.button-collections {
     font-family: Calibri;
-}
-
-.slider-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
-    max-width: 800px; /* Ajuste conforme necessário */
-    margin: auto;
-    overflow: hidden;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    height: 80vh;
+    text-decoration: black;
 }
 
-.slider {
+.collection-btn {
     display: flex;
-    transition: transform 0.5s ease-in-out;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* Largura do botão */
+    height: 100px; /* Altura do botão */
+    background-size: cover; /* Ajusta a imagem ao tamanho do botão */
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white; /* Cor do texto */
+    text-shadow: 
+        -1px -1px 0 black,  
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
 }
 
-.slide {
-    min-width: 25%; /* 100% / 4 = 25%, pois mostramos 4 itens */
-    box-sizing: border-box;
-    padding: 10px;
-}
-
-.slide img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.nav-btn {
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
-}
-
-#prevBtn {
-    left: 0;
-}
-
-#nextBtn {
-    right: 0;
+.collection-btn:hover {
+    transform: scale(1.05);
 }
