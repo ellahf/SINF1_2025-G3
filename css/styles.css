@@ -163,7 +163,8 @@
 .button-collection {
     font-family: Calibri;
     background-color: #8d9eaf;
-    margin-left: 95%;
+    color: white;
+    margin-left:93%;
 }
 
 /* Estilizar o fundo escuro quando o popup aparece */
