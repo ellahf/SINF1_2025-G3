@@ -32,3 +32,61 @@ function voltar() {
     document.querySelectorAll('.detalhe-item').forEach(div => div.style.display = 'none');
     window.scrollTo({ top: 500, behavior: 'smooth' });
 }
+
+document.querySelectorAll(".edit-btn").forEach(button => {
+    button.addEventListener("click", function () {
+        let card = this.parentElement;
+        let title = card.querySelector(".title");
+        let description = card.querySelector(".description");
+
+        let newTitle = prompt("Novo título:", title.textContent);
+        let newDescription = prompt("Nova descrição:", description.textContent);
+
+        if (newTitle) title.textContent = newTitle;
+        if (newDescription) description.textContent = newDescription;
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    let cards = document.querySelectorAll(".collection-card");
+    let popup = document.getElementById("popupConfirm");
+    let confirmBtn = document.getElementById("confirmDelete");
+    let cancelBtn = document.getElementById("cancelDelete");
+    let cardToDelete = null;
+
+    // Adiciona funcionalidade de edição
+    cards.forEach(card => {
+        let editBtn = card.querySelector(".edit-btn");
+        let deleteBtn = card.querySelector(".delete-btn");
+        
+        editBtn.addEventListener("click", function () {
+            let title = card.querySelector(".title");
+            let description = card.querySelector(".description");
+
+            let newTitle = prompt("Novo título:", title.textContent);
+            let newDescription = prompt("Nova descrição:", description.textContent);
+
+            if (newTitle !== null && newTitle.trim() !== "") title.textContent = newTitle;
+            if (newDescription !== null && newDescription.trim() !== "") description.textContent = newDescription;
+        });
+
+        deleteBtn.addEventListener("click", function () {
+            cardToDelete = card;
+            popup.style.display = "flex";
+        });
+    });
+
+    // Se confirmar, remove o card
+    confirmBtn.addEventListener("click", function () {
+        if (cardToDelete) {
+            cardToDelete.remove();
+            cardToDelete = null;
+        }
+        popup.style.display = "none";
+    });
+
+    // Se cancelar, apenas fecha o pop-up
+    cancelBtn.addEventListener("click", function () {
+        popup.style.display = "none";
+    });
+});

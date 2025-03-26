@@ -42,33 +42,50 @@
             <section class="collection-section">
                 <div class="collection-container">
                     <div class="collection-item">
-                        <img src="../../imagens/comic1.jpg" alt="Comic Book 1">
+                        <img src="../../imagens/comicBook1.jpg" alt="Comic Book 1">
                         <h3>Avengers</h3>
                         <p>Um clássico de Stan Lee.</p>
-                        <button>Ver Detalhes</button>
+                        <button onclick="window.location.href='itensComic/itemAvengers.html';">Saiba Mais</button>
+                        <button class="edit-btn">Editar</button>
+                        <button class="delete-btn">Apagar</button>
                     </div>
 
                     <div class="collection-item">
-                        <img src="../../imagens/comic2.jpg" alt="Comic Book 2">
+                        <img src="../../imagens/comicBook2.jpg" alt="Comic Book 2">
                         <h3>The X-Men</h3>
                         <p>Primeira edição de The X-Men.</p>
-                        <button>Ver Detalhes</button>
+                        <button onclick="window.location.href='itensComic/itemTheXmen.html';">Saiba Mais</button>
+                        <button class="edit-btn">Editar</button>
+                        <button class="delete-btn">Apagar</button>
                     </div>
 
                     <div class="collection-item">
-                        <img src="../../imagens/comic3.jpg" alt="Comic Book 3">
+                        <img src="../../imagens/comicBook3.jpg" alt="Comic Book 3">
                         <h3>Hulk & Batman</h3>
                         <p>Os favoritos.</p>
-                        <button>Ver Detalhes</button>
+                        <button onclick="window.location.href='itensComic/itemHulkBatman.html';">Saiba Mais</button>
+                        <button class="edit-btn">Editar</button>
+                        <button class="delete-btn">Apagar</button>
                     </div>
                 </div>
             </section>
+
+            <!-- Pop-up de Confirmação -->
+            <div id="popupConfirm" class="popup">
+                <div class="popup-content">
+                    <p>Tem certeza que deseja apagar?</p>
+                    <button id="confirmDelete">Sim</button>
+                    <button id="cancelDelete">Não</button>
+                </div>
+            </div>
         </main>
 
         <footer>
             <hr class="colored-line">
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo7.</p>
         </footer>
+
+        <script src="../java/scrip.js"></script>
     </body>
 
 </html>
