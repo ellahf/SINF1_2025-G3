@@ -163,8 +163,7 @@
 .button-collection {
     font-family: Calibri;
     background-color: #8d9eaf;
-    color: white;
-    margin-left:93%;
+    margin-left: 95%;
 }
 
 /* Estilizar o fundo escuro quando o popup aparece */
@@ -261,4 +260,19 @@ button:hover {
 
 .collection-btn:hover {
     transform: scale(1.05);
+}
+
+.event-section {
+    font-family: Calibri;
+}
+
+.event-section h2 {
+    text-decoration: underline;
+    font-family: Calibri;
+    margin-top: 40px;
+}
+
+.event-section p {
+    font-family: Calibri;
+    margin-left: 40px;
 }
