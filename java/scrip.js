@@ -21,3 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+function mostrarDetalhes(id) {
+    document.querySelectorAll('.detalhe-item').forEach(div => div.style.display = 'none');
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(id).style.display = 'block';
+}
+
+function voltar() {
+    document.querySelectorAll('.detalhe-item').forEach(div => div.style.display = 'none');
+    window.scrollTo({ top: 500, behavior: 'smooth' });
+}

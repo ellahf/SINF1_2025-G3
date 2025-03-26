@@ -13,6 +13,10 @@
     font-family: Calibri;
 }
 
+.logo a{
+    color: white;
+}
+
 .search-bar {
     margin-left: auto; /* Pushes the search bar to the right */
     font-family: Calibri;
@@ -119,6 +123,7 @@
     text-align: center;
     padding: 20px;
     background-color: #f4f4f4;
+    justify-content: center;
 }
 
 .collection-container {
@@ -136,6 +141,7 @@
     width: 250px;
     text-align: center;
     font-family: Calibri;
+    width: 400px;
 }
 
 .collection-item img {
@@ -275,4 +281,93 @@ button:hover {
 .event-section p {
     font-family: Calibri;
     margin-left: 40px;
+}
+
+.detalhe-item {
+    display: none;
+    margin-top: 30px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.detalhe-item img {
+    max-width: 300px;
+    border-radius: 10px;
+}
+  
+.detalhe-conteudo {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+  
+.voltar-btn {
+    margin-top: 20px;
+    background-color: #888;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+  
+.voltar-btn:hover {
+    background-color: #555;
+}
+
+.zoom-hover { 
+    transition: transform 0.3s ease; 
+    cursor: zoom-in; 
+}
+
+.zoom-hover:hover { 
+    transform: scale(1.05); 
+}
+
+.zoom-modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1000;
+      padding-top: 60px; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+}
+
+.zoom-modal-content {
+      margin: auto; 
+      display: block;
+      max-width: 90%; 
+      max-height: 80%;
+      border-radius: 10px; 
+      box-shadow: 0 0 20px #fff;
+}
+    
+.close-modal {
+      position: absolute; 
+      top: 30px; right: 50px;
+      color: #fff; 
+      font-size: 40px; 
+      font-weight: bold; 
+      cursor: pointer;
+}
+    
+.back-button {
+      display: inline-block; 
+      margin-top: 20px;
+      padding: 10px 15px; 
+      background-color: #008CBA;
+      color: white; 
+      border: none; 
+      border-radius: 5px;
+      text-decoration: none; 
+      font-family: Calibri;
 }
