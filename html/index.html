@@ -90,12 +90,14 @@
                     <form id="collectionForm">
                         <label for="collectionName">Nome da Coleção:</label>
                         <input type="text" id="collectionName" required>
-
-                        <label for="collectionImage">Imagem (URL ou upload):</label>
-                        <input type="text" id="collectionImage" placeholder="URL da imagem">
-                        
+                    
+                        <label for="collectionFile">Capa da coleção (escolha um arquivo):</label>
+                        <input type="file" id="collectionFile" accept="imagens/*">
+                    
+                        <div id="previewContainer" style="margin-top:10px;"></div>
+                    
                         <button type="submit">Adicionar</button>
-                    </form>
+                    </form>                                      
                 </div>
             </div>
         </main>

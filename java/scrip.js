@@ -1,81 +1,97 @@
-// Função para abrir o pop-up
 document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.getElementById("popupForm"); // Pega o formulário
-    const openPopupBtn = document.getElementById("openPopupBtn"); // Botão de abrir
-    const closePopupBtn = document.querySelector(".close-btn"); // Botão "X" de fechar
-
-    // Quando o botão "Criar Nova Coleção" for clicado, mostrar o popup
-    openPopupBtn.addEventListener("click", function () {
+    const popup = document.getElementById("popupForm");
+    const openBtn = document.getElementById("openPopupBtn");
+    const closeBtn = document.querySelector(".close-btn");
+    const form = document.getElementById("collectionForm");
+    const fileInput = document.getElementById("collectionFile");
+    const previewContainer = document.getElementById("previewContainer");
+    const colecoesContainer = document.querySelector(".button-collections");
+  
+    // Popup
+    if (openBtn && popup) {
+      openBtn.addEventListener("click", () => {
         popup.style.display = "flex";
-    });
-
-    // Quando clicar no botão "X", esconder o popup
-    closePopupBtn.addEventListener("click", function () {
+      });
+    }
+  
+    if (closeBtn && popup && form && previewContainer) {
+      closeBtn.addEventListener("click", () => {
         popup.style.display = "none";
-    });
-
-    // Fechar o popup ao clicar fora dele (fundo escuro)
-    window.addEventListener("click", function (event) {
+        form.reset();
+        previewContainer.innerHTML = "";
+      });
+  
+      window.addEventListener("click", function (event) {
         if (event.target === popup) {
-            popup.style.display = "none";
+          popup.style.display = "none";
+          form.reset();
+          previewContainer.innerHTML = "";
         }
+      });
+    }
+  
+    if (fileInput && previewContainer) {
+      fileInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewContainer.innerHTML = `<img src="${e.target.result}" style="max-width:100%;">`;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+  
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("collectionName").value;
+        const file = document.getElementById("collectionFile").files[0];
+        if (!file) return alert("Escolha uma imagem.");
+  
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const nome = encodeURIComponent(name);
+          const imagem = encodeURIComponent(e.target.result);
+          window.location.href = `colecoes.html?nome=${nome}&imagem=${imagem}`;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  
+    if (colecoesContainer) {
+      const params = new URLSearchParams(window.location.search);
+      const nome = params.get("nome");
+      const imagem = params.get("imagem");
+  
+      if (nome && imagem) {
+        const novaColecao = document.createElement("a");
+        novaColecao.className = "collection-btn";
+      
+        // Criar nome de arquivo baseado no nome da coleção
+        const nomeArquivo = nome
+          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .replace(/[^a-z0-9]/g, "");
+      
+        novaColecao.href = `colecoes/${nomeArquivo}.html`;
+        novaColecao.style.backgroundImage = `url('${imagem}')`;
+        novaColecao.innerHTML = `<span>${nome}</span>`;
+        colecoesContainer.appendChild(novaColecao);
+      }      
+    }
+  });
+  
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const confirmar = confirm("Deseja apagar este item?");
+      if (confirmar) {
+        const card = this.closest(".collection-item");
+        if (card) card.remove();
+      }
     });
+  });
 });
-
-function mostrarDetalhes(id) {
-    document.querySelectorAll('.detalhe-item').forEach(div => div.style.display = 'none');
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    document.getElementById(id).style.display = 'block';
-}
-
-function voltar() {
-    document.querySelectorAll('.detalhe-item').forEach(div => div.style.display = 'none');
-    window.scrollTo({ top: 500, behavior: 'smooth' });
-}
-
-document.querySelectorAll(".edit-btn").forEach(button => {
-    button.addEventListener("click", function () {
-        let card = this.parentElement;
-        let title = card.querySelector(".title");
-        let description = card.querySelector(".description");
-
-        let newTitle = prompt("Novo título:", title.textContent);
-        let newDescription = prompt("Nova descrição:", description.textContent);
-
-        if (newTitle) title.textContent = newTitle;
-        if (newDescription) description.textContent = newDescription;
-    });
-});
-
-let editandoId = null;
-
-function editItem(id) {
-  editandoId = id;
-
-  const titulo = document.getElementById(`title${id}`).textContent;
-  const descricao = document.getElementById(`desc${id}`).textContent;
-  const imagem = document.getElementById(`img${id}`).src;
-
-  document.getElementById("editTitulo").value = titulo;
-  document.getElementById("editDescricao").value = descricao;
-  document.getElementById("editImagem").value = imagem;
-
-  document.getElementById("editPopup").style.display = "flex";
-}
-
-function fecharPopupEdit() {
-  document.getElementById("editPopup").style.display = "none";
-  editandoId = null;
-}
-
-function salvarEdicao() {
-  const novoTitulo = document.getElementById("editTitulo").value;
-  const novaDescricao = document.getElementById("editDescricao").value;
-  const novaImagem = document.getElementById("editImagem").value;
-
-  document.getElementById(`title${editandoId}`).textContent = novoTitulo;
-  document.getElementById(`desc${editandoId}`).textContent = novaDescricao;
-  document.getElementById(`img${editandoId}`).src = novaImagem;
-
-  fecharPopupEdit();
-}
