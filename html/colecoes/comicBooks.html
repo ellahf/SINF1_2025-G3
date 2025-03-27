@@ -41,15 +41,17 @@
 
             <section class="collection-section">
                 <div class="collection-container">
-                    <div class="collection-item">
-                        <img src="../../imagens/comicBook1.jpg" alt="Comic Book 1">
-                        <h3>Avengers</h3>
-                        <p>Um clássico de Stan Lee.</p>
-                        <button onclick="window.location.href='itensComic/itemAvengers.html';">Saiba Mais</button>
-                        <button class="edit-btn">Editar</button>
-                        <button class="delete-btn">Apagar</button>
-                    </div>
-
+                    <div class="collection-item" id="card1">
+                        <img src="../../imagens/comicBook1.jpg" alt="Avengers" id="img1">
+                        <h3 id="title1">Avengers</h3>
+                        <p id="desc1">Um clássico de Stan Lee.</p>
+                        <div id="actions1">
+                          <button onclick="window.location.href='itensComic/itemAvengers.html';">Saiba Mais</button>
+                          <button onclick="editItem(1)">Editar</button>
+                          <button>Apagar</button>
+                        </div>
+                      </div>                                       
+                                      
                     <div class="collection-item">
                         <img src="../../imagens/comicBook2.jpg" alt="Comic Book 2">
                         <h3>The X-Men</h3>
@@ -70,14 +72,19 @@
                 </div>
             </section>
 
-            <!-- Pop-up de Confirmação -->
-            <div id="popupConfirm" class="popup">
+            <!-- POPUP DE EDIÇÃO -->
+            <div id="editPopup" class="popup">
                 <div class="popup-content">
-                    <p>Tem certeza que deseja apagar?</p>
-                    <button id="confirmDelete">Sim</button>
-                    <button id="cancelDelete">Não</button>
+                <span class="close-btn" onclick="fecharPopupEdit()">&times;</span>
+                <h2>Editar Item</h2>
+                <input type="text" id="editTitulo" placeholder="Novo título" />
+                <textarea id="editDescricao" placeholder="Nova descrição"></textarea>
+                <input type="text" id="editImagem" placeholder="URL da nova imagem" />
+                <br>
+                <button onclick="salvarEdicao()">Salvar</button>
                 </div>
             </div>
+  
         </main>
 
         <footer>

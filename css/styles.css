@@ -18,8 +18,11 @@
 }
 
 .search-bar {
-    margin-left: auto; /* Pushes the search bar to the right */
+    margin-left: auto;
     font-family: Calibri;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .search-bar input {
@@ -316,4 +319,12 @@ button:hover {
   
 .voltar-btn:hover {
     background-color: #555;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }

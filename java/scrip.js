@@ -47,46 +47,35 @@ document.querySelectorAll(".edit-btn").forEach(button => {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    let cards = document.querySelectorAll(".collection-card");
-    let popup = document.getElementById("popupConfirm");
-    let confirmBtn = document.getElementById("confirmDelete");
-    let cancelBtn = document.getElementById("cancelDelete");
-    let cardToDelete = null;
+let editandoId = null;
 
-    // Adiciona funcionalidade de edição
-    cards.forEach(card => {
-        let editBtn = card.querySelector(".edit-btn");
-        let deleteBtn = card.querySelector(".delete-btn");
-        
-        editBtn.addEventListener("click", function () {
-            let title = card.querySelector(".title");
-            let description = card.querySelector(".description");
+function editItem(id) {
+  editandoId = id;
 
-            let newTitle = prompt("Novo título:", title.textContent);
-            let newDescription = prompt("Nova descrição:", description.textContent);
+  const titulo = document.getElementById(`title${id}`).textContent;
+  const descricao = document.getElementById(`desc${id}`).textContent;
+  const imagem = document.getElementById(`img${id}`).src;
 
-            if (newTitle !== null && newTitle.trim() !== "") title.textContent = newTitle;
-            if (newDescription !== null && newDescription.trim() !== "") description.textContent = newDescription;
-        });
+  document.getElementById("editTitulo").value = titulo;
+  document.getElementById("editDescricao").value = descricao;
+  document.getElementById("editImagem").value = imagem;
 
-        deleteBtn.addEventListener("click", function () {
-            cardToDelete = card;
-            popup.style.display = "flex";
-        });
-    });
+  document.getElementById("editPopup").style.display = "flex";
+}
 
-    // Se confirmar, remove o card
-    confirmBtn.addEventListener("click", function () {
-        if (cardToDelete) {
-            cardToDelete.remove();
-            cardToDelete = null;
-        }
-        popup.style.display = "none";
-    });
+function fecharPopupEdit() {
+  document.getElementById("editPopup").style.display = "none";
+  editandoId = null;
+}
 
-    // Se cancelar, apenas fecha o pop-up
-    cancelBtn.addEventListener("click", function () {
-        popup.style.display = "none";
-    });
-});
+function salvarEdicao() {
+  const novoTitulo = document.getElementById("editTitulo").value;
+  const novaDescricao = document.getElementById("editDescricao").value;
+  const novaImagem = document.getElementById("editImagem").value;
+
+  document.getElementById(`title${editandoId}`).textContent = novoTitulo;
+  document.getElementById(`desc${editandoId}`).textContent = novaDescricao;
+  document.getElementById(`img${editandoId}`).src = novaImagem;
+
+  fecharPopupEdit();
+}
