@@ -95,3 +95,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const stars = document.querySelectorAll(".star");
+
+  stars.forEach((star) => {
+    const container = star.parentElement;
+
+    // Efeito ao passar o mouse
+    star.addEventListener("mouseover", () => {
+      const value = parseInt(star.dataset.value);
+      container.querySelectorAll(".star").forEach((s) => {
+        s.classList.toggle("hovered", parseInt(s.dataset.value) <= value);
+      });
+    });
+
+    // Tirar o efeito ao sair do mouse
+    star.addEventListener("mouseout", () => {
+      container.querySelectorAll(".star").forEach((s) => {
+        s.classList.remove("hovered");
+      });
+    });
+
+    // Marcar as estrelas selecionadas
+    star.addEventListener("click", () => {
+      const value = parseInt(star.dataset.value);
+      container.querySelectorAll(".star").forEach((s) => {
+        s.classList.toggle("selected", parseInt(s.dataset.value) <= value);
+      });
+    });
+  });
+});
