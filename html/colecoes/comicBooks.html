@@ -48,7 +48,7 @@
                         <p id="desc1">Um clássico de Stan Lee.</p>
                         <div id="actions1">
                           <button onclick="window.location.href='itensComic/itemAvengers.html';">Saiba Mais</button>
-                          <button class="edit-btn">Editar</button>
+                          <button onclick="abrirPopupEdit()">Editar</button>
                           <button class="delete-btn">Apagar</button>
                         </div>
                       </div>                                       
@@ -58,7 +58,7 @@
                         <h3>The X-Men</h3>
                         <p>Primeira edição de The X-Men.</p>
                         <button onclick="window.location.href='itensComic/itemTheXmen.html';">Saiba Mais</button>
-                        <button class="edit-btn">Editar</button>
+                        <button onclick="abrirPopupEdit()">Editar</button>
                         <button class="delete-btn">Apagar</button>
                     </div>
 
@@ -67,24 +67,38 @@
                         <h3>Hulk & Batman</h3>
                         <p>Os favoritos.</p>
                         <button onclick="window.location.href='itensComic/itemHulkBatman.html';">Saiba Mais</button>
-                        <button class="edit-btn">Editar</button>
+                        <button onclick="abrirPopupEdit()">Editar</button>
                         <button class="delete-btn">Apagar</button>
                     </div>
                 </div>
             </section>
 
-            <!-- POPUP DE EDIÇÃO -->
+            <!-- POPUP DE EDIÇÃO COMPLETO -->
             <div id="editPopup" class="popup">
                 <div class="popup-content">
                 <span class="close-btn" onclick="fecharPopupEdit()">&times;</span>
                 <h2>Editar Item</h2>
-                <input type="text" id="editTitulo" placeholder="Novo título" />
-                <textarea id="editDescricao" placeholder="Nova descrição"></textarea>
-                <input type="text" id="editImagem" placeholder="URL da nova imagem" />
+            
+                <label for="editNome">Nome:</label>
+                <input type="text" id="editNome">
+            
+                <label for="editPeso">Peso:</label>
+                <input type="text" id="editPeso">
+            
+                <label for="editDesc">Descrição:</label>
+                <textarea id="editDesc"></textarea>
+            
+                <label for="editValor">Valor:</label>
+                <input type="text" id="editValor">
+            
+                <label for="editImagem">URL da Imagem:</label>
+                <input type="text" id="editImagem">
+            
                 <br>
                 <button onclick="salvarEdicao()">Salvar</button>
                 </div>
             </div>
+  
   
         </main>
 
@@ -93,7 +107,7 @@
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo7.</p>
         </footer>
 
-        <script src="../../java/scrip.js"></script>
+        <script src="../../java/script.js"></script>
     </body>
 
 </html>

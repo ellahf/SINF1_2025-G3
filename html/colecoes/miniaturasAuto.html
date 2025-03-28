@@ -61,6 +61,33 @@
                     </div>
                 </div>
             </section>
+
+            <!-- POPUP DE EDIÇÃO COMPLETO -->
+            <div id="editPopup" class="popup">
+                <div class="popup-content">
+                <span class="close-btn" onclick="fecharPopupEdit()">&times;</span>
+                <h2>Editar Item</h2>
+            
+                <label for="editNome">Nome:</label>
+                <input type="text" id="editNome">
+            
+                <label for="editPeso">Peso:</label>
+                <input type="text" id="editPeso">
+            
+                <label for="editDesc">Descrição:</label>
+                <textarea id="editDesc"></textarea>
+            
+                <label for="editValor">Valor:</label>
+                <input type="text" id="editValor">
+            
+                <label for="editImagem">URL da Imagem:</label>
+                <input type="text" id="editImagem">
+            
+                <br>
+                <button onclick="salvarEdicao()">Salvar</button>
+                </div>
+            </div>
+
         </main>
         
         <footer>
@@ -68,6 +95,6 @@
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo7.</p>
         </footer>
 
-        <script src="../../java/scrip.js"></script>
+        <script src="../java/script.js"></script>
     </body>
 </html>
