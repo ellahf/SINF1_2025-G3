@@ -248,6 +248,11 @@ button:hover {
     display: none;
 }
 
+.tipo-colecao {
+    display: none;
+}
+
+
 .collection-btn {
     display: flex;
     justify-content: center;
