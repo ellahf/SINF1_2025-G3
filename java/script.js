@@ -126,3 +126,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const linkMostrarRegistro = document.getElementById("mostrar-registro");
+    const formularioRegistro = document.querySelector(".register-form-section");
+
+    linkMostrarRegistro.addEventListener("click", function (e) {
+        e.preventDefault(); // impede o comportamento padrão do link
+        formularioRegistro.style.display = "block";
+        formularioRegistro.scrollIntoView({ behavior: "smooth" });
+    });
+});
