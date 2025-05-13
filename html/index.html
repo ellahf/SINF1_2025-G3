@@ -13,10 +13,28 @@
             <div class="top-bar">
                 <div class="logo" href="index.html">Portal do Colecionador</div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button>Search</button>
+                    <button id="openPopupBtn">Login</button>
                 </div>
             </div>
+
+            <!-- O Popup -->
+            <div id="popupForm" class="popup">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Login</h2>
+                    <form id="collectionForm">
+                        <label for="">Email:</label>
+                        <input type="text" id="email" name="email" required>
+
+                        <label for="descricaoColecao">Password:</label><br>
+                        <input type="password" id="password" name="password" required>
+
+                        <button id="butaosubmit" type="submit" name="submitnavbar" value="submit">Login</button>
+                        <a style="color:black">Não tem conta?</a> <a href="registar.php">Registar</a>
+                    </form>  
+                </div>
+            </div>
+
             <nav class="navbar">
                 <ul class="nav-links">
                     <li class="nav-item dropdown">
@@ -28,15 +46,17 @@
                     <li class="nav-item dropdown">
                         <a href="eventos.html">Eventos</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a href="colecoes.html">Coleções</a>
+                    </li>
                 </ul>
             </nav>
         </header>
 
         <main>
             <div class="below-navbar">
-                <button class="button-collection" onclick="window.location.href='login.php';">Login/Registar</button>
-                <h1>Bem-vindo</h1>
-                <button class="button-collection" onclick="window.location.href='colecoes.html';">Ver coleções</button>
+                <h1 class="below-navbar-h1">Bem-vindo</h1>
+                
             </div>
             <hr class="colored-line">
             <section>
@@ -80,33 +100,16 @@
                     </section>
                 </div>
             </section>
-            <!-- Botão para abrir o popup -->
-            <button id="openPopupBtn" class="button-new-collection">Criar nova coleção</button>
 
-            <!-- O Popup -->
-            <div id="popupForm" class="popup">
-                <div class="popup-content">
-                    <span class="close-btn">&times;</span>
-                    <h2>Nova Coleção</h2>
-                    <form id="collectionForm">
-                        <label for="collectionName">Nome da Coleção:</label>
-                        <input type="text" id="collectionName" required>
-                    
-                        <label for="collectionFile">Capa da coleção (escolha um arquivo):</label>
-                        <input type="file" id="collectionFile" accept="imagens/*">
-                    
-                        <div id="previewContainer" style="margin-top:10px;"></div>
-                    
-                        <button type="submit">Adicionar</button>
-                    </form>                                      
-                </div>
-            </div>
+            
         </main>
         
         <footer>
             <hr class="colored-line">
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo3.</p>
         </footer>
+
+        
 
         <script src="../java/script.js"></script>
     </body> 

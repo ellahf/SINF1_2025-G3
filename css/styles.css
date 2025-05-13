@@ -109,6 +109,7 @@
 
 .below-navbar h1 {
     font-family: Calibri;
+    display: right;
 }
 
 .below-navbar p {
