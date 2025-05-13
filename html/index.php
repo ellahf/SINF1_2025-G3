@@ -38,13 +38,16 @@
             <nav class="navbar">
                 <ul class="nav-links">
                     <li class="nav-item dropdown">
+                        <a href="index.php">Início</a>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a href="colecoes/miniaturasAuto.html">Miniaturas Automotivas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="colecoes/comicBooks.html">Comic Books</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="eventos.html">Eventos</a>
+                        <a href="eventos.php">Eventos</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="colecoes.html">Coleções</a>

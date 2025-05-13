@@ -1,3 +1,14 @@
+<?php
+session_start();
+include "codigophp.php";
+
+// Processamento do formulário
+if (isset($_POST["submit"])) {
+    $ok = adicionarEvento($mysqli, $_POST, $_FILES["imagem"]);
+    echo "<script>alert('" . ($ok ? "Criado!" : "Erro!") . "');</script>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -11,7 +22,7 @@
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo""><a href="index.html">Eventos</a></div>
+                <div class="logo"><a href="index.html">Eventos</a></div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search...">
                     <button>Search</button>
@@ -19,6 +30,9 @@
             </div>
             <nav class="navbar">
                 <ul class="nav-links">
+                    <li class="nav-item dropdown">
+                        <a href="index.php">Início</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a href="colecoes/miniaturasAuto.html">Miniaturas Automotivas</a>
                     </li>
@@ -35,8 +49,9 @@
             <div class="below-navbar">
                 <h1>Eventos de Colecionadores</h1>
                 <p>Confira os eventos que já aconteceram e os que ainda estão por vir!</p>
-                <button onclick="window.location.href='index.html';">Voltar</button>
+                <button id="openPopupBtn">Criar evento</button>
             </div>
+
             <hr class="colored-line">
     
             <h2><u>Próximos Eventos</u></h2>
@@ -105,6 +120,28 @@
                 </section>
             </section>
         </main>
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="text" name="nome" required>
+            <textarea name="descricao" required></textarea>
+            <input type="date" name="data" required>
+            <input type="date" name="dataFim" required>
+            <input type="text" name="local" required>
+            <input type="file" name="imagem" required>
+
+            <select name="colecao" required>
+                <?php
+                $uid = $_SESSION["id"];
+                $res = $mysqli->query("SELECT colecaoid, nome FROM colecao WHERE idUtilizador=$uid");
+                while ($r = $res->fetch_assoc()) {
+                    echo "<option value='{$r['colecaoid']}'>{$r['nome']}</option>";
+                }
+                ?>
+            </select>
+
+            <button type="submit" name="submit">Adicionar Evento</button>
+        </form>
+
     
         <footer>
             <hr class="colored-line">
