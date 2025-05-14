@@ -1,12 +1,28 @@
 <?php
-session_start();
-include "codigophp.php";
+    session_start();
+    include "DataAcessLayer.php";
 
-// Processamento do formulário
-if (isset($_POST["submit"])) {
-    $ok = adicionarEvento($mysqli, $_POST, $_FILES["imagem"]);
-    echo "<script>alert('" . ($ok ? "Criado!" : "Erro!") . "');</script>";
-}
+    if (isset($_POST["submit"])) {
+        $nome = $_POST["nome"];
+        $descricao = $_POST["descricao"];
+        $local = $_POST["localizacao"];
+        $data = $_POST["data"];
+        $imagem = $_FILES["imagem"]["name"];
+        $tmp = $_FILES["imagem"]["tmp_name"];
+        $destino = "imagens/" . $imagem;
+        $utilizador_id = $_SESSION["id"];
+        $colecao_id = $_POST["colecao_id"];
+
+        $stmt = $mysqli->prepare("INSERT INTO evento (nome, descricao, localizacao, data, imagem, utilizador_id, colecao_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssi", $nome, $descricao, $local, $data, $imagem, $utilizador_id, $colecao_id);
+
+        if ($stmt->execute()) {
+            move_uploaded_file($tmp, $destino);
+            echo "<script>alert('Evento criado com sucesso!');</script>";
+        } else {
+            echo "<script>alert('Erro ao criar evento.');</script>";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -120,34 +136,51 @@ if (isset($_POST["submit"])) {
                 </section>
             </section>
         </main>
-
-        <form method="post" enctype="multipart/form-data">
-            <input type="text" name="nome" required>
-            <textarea name="descricao" required></textarea>
-            <input type="date" name="data" required>
-            <input type="date" name="dataFim" required>
-            <input type="text" name="local" required>
-            <input type="file" name="imagem" required>
-
-            <select name="colecao" required>
-                <?php
-                $uid = $_SESSION["id"];
-                $res = $mysqli->query("SELECT colecaoid, nome FROM colecao WHERE idUtilizador=$uid");
-                while ($r = $res->fetch_assoc()) {
-                    echo "<option value='{$r['colecaoid']}'>{$r['nome']}</option>";
-                }
-                ?>
-            </select>
-
-            <button type="submit" name="submit">Adicionar Evento</button>
-        </form>
-
     
         <footer>
             <hr class="colored-line">
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo3.</p>
         </footer>
-     
+
+        <div id="popupForm" class="popup">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>Adicionar Evento</h2>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <label for="nome">Nome do Evento:</label>
+                        <input type="text" name="nome" id="nome" required>
+
+                        <label for="descricao">Descrição:</label>
+                        <textarea name="descricao" id="descricao" required></textarea>
+
+                        <label for="localizacao">Localização:</label>
+                        <input type="text" name="localizacao" id="localizacao" required>
+
+                        <label for="data">Data:</label>
+                        <input type="date" name="data" id="data" required>
+
+                        <label for="imagem">Imagem:</label>
+                        <input type="file" name="imagem" id="imagem" accept="image/*" required>
+
+                        <label for="colecao">Coleção:</label>
+                        <select name="colecao_id" id="colecao" required>
+                            <?php
+                            $uid = $_SESSION["id"];
+                            $res = $mysqli->query("SELECT colecaoid, nome FROM colecao WHERE idUtilizador=$uid");
+                            while ($r = $res->fetch_assoc()) {
+                                echo "<option value='{$r['colecaoid']}'>{$r['nome']}</option>";
+                            }
+                            ?>
+                        </select>
+                        !-- usuário logado: oculto -->
+                        <input type="hidden" name="utilizador_id" value="<?php echo $_SESSION['id']; ?>">
+
+                        <button type="submit" name="submit">Adicionar Evento</button>
+                    </form>
+                </div>
+            </div>
+
         <script src="../java/script.js"></script>
     </body>
 </html>
