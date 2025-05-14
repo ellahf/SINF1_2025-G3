@@ -1,48 +1,36 @@
 <?php
-    include "ligacao.php";
-
+    include "DataAccessLayer.php";
     
+    class BLL {
+        private $dal;
 
-    function adicionarEvento($mysqli, $dados, $file) {
-        $imagem = $file["name"];
-        $tmp = $file["tmp_name"];
-        $destino = "imagens/" . $imagem;
-
-        $query = "INSERT INTO evento (nome, descricao, data, dataFim, local, imagem, colecaoid) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        $stmt = $mysqli->prepare($query);
-        $stmt->bind_param("ssssssi", $dados["nome"], $dados["descricao"], $dados["data"], $dados["dataFim"], $dados["local"], $imagem, $dados["colecao"]);
-
-        if ($stmt->execute()) {
-            move_uploaded_file($tmp, $destino);
-            return true;
+        function __construct() {
+            $this->dal = new DAL();
         }
 
-        return false;
-    }
+        function registarUtilizador($nome, $data_nascimento, $email, $password) {
+            // Verifica se o email já existe
+            $utilizadores = $this->dal->getAllUtilizador();
+            foreach ($utilizadores as $u) {
+                if ($u['email'] === $email) {
+                    return "Este email já está registado.";
+                }
+            }
 
-    function editarEvento($mysqli, $id, $dados, $file) {
-        $imagem = $file["name"];
-        $tmp = $file["tmp_name"];
-        $destino = "imagens/" . $imagem;
+            // Verifica se a password tem pelo menos 6 caracteres
+            if (strlen($password) < 6) {
+                return "A palavra-passe deve ter pelo menos 6 caracteres.";
+            }
 
-        $query = "UPDATE evento SET nome=?, descricao=?, data=?, dataFim=?, local=?, imagem=?, colecaoid=? WHERE cod_evento=?";
-        $stmt = $mysqli->prepare($query);
-        $stmt->bind_param("ssssssii", $dados["nome"], $dados["descricao"], $dados["data"], $dados["dataFim"], $dados["local"], $imagem, $dados["colecao"], $id);
+            // Hashear a password
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($stmt->execute()) {
-            move_uploaded_file($tmp, $destino);
-            return true;
+            // Inserir na base de dados (nome da coluna é 'password')
+            $sucesso = $this->dal->insertUtilizador($nome, $data_nascimento, $email, $passwordHash);
+
+            return $sucesso ? "Utilizador registado com sucesso!" : "Erro ao registar utilizador.";
         }
 
-        return false;
     }
-
-    function excluirEvento($mysqli, $id) {
-        return $mysqli->query("DELETE FROM evento WHERE cod_evento=$id");
-    }
-
-
 
 ?>

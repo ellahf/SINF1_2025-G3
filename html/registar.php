@@ -1,3 +1,19 @@
+<?php
+    include 'BusinessLogicLayer.php';
+
+    $mensagem = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nome = $_POST["nome"];
+        $data = $_POST["data"];
+        $email = $_POST["email"];
+        $password = $_POST["senha"]; // Continua a usar o campo 'senha' no formulário
+
+        $bll = new BLL();
+        $mensagem = $bll->registarUtilizador($nome, $data, $email, $password);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -37,7 +53,10 @@
             <hr class="colored-line">
 
             <section class="register-form-section">
-                <form class="user-form" onsubmit="return validarFormulario()">
+                <?php if ($mensagem): ?>
+                    <p style="color: green;"><?= htmlspecialchars($mensagem) ?></p>
+                <?php endif; ?>
+                <form class="user-form" method="POST" action="">
                     <label for="nome">Nome:</label>
                     <input type="text" id="nome" name="nome" required>
 
@@ -48,9 +67,9 @@
                     <input type="email" id="email" name="email" required>
             
                     <label for="senha">Palavra-passe:</label>
-                    <input type="password" id="senha" name="senha" required>
+                    <input type="password" id="senha" name="password" required>
             
-                    <button id="butaosubmit" type="submit" name="submitnavbar" value="submit">Enviar</button>
+                    <button type="submit" name="submitnavbar" value="submit">Enviar</button>
                 </form>
             </section>
         </main>
