@@ -28,7 +28,10 @@
                         <a href="colecoes/comicBooks.html">Comic Books</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="eventos.html">Eventos</a>
+                        <a href="eventos.php">Eventos</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="colecoes.php">Coleções</a>
                     </li>
                 </ul>
             </nav>

@@ -1,58 +1,48 @@
- <?php   
+ <?php     
     class DAL {
         private $conn;
+
         function __construct() {
             $this->conn = new mysqli('localhost', 'root', '', 'sinf1_g3');
+            if ($this->conn->connect_error) {
+                die("Erro de conexão: " . $this->conn->connect_error);
+            }
+        }
+
+        function __destruct() {
+            if ($this->conn) {
+                $this->conn->close();
+            }
+        }
+
+        private function fetchAllFromTable($tableName) {
+            $stmt = $this->conn->prepare("SELECT * FROM $tableName");
+            if ($stmt) {
+                $stmt->execute();
+                $result = $stmt->get_result();
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }
+            return null;
         }
 
         function getAllUtilizador() {
-            if($this->conn) {
-                $recordset = $this->conn->query("SELECT * FROM utilizador");
-                $dataset = $recordset->fetch_all(MYSQLI_ASSOC);
-                $this->conn->close();
-                return $dataset;
-            }
-            return null;
+            return $this->fetchAllFromTable("utilizador");
         }
 
         function getAllColecoes() {
-            if($this->conn) {
-                $recordset = $this->conn->query("SELECT * FROM colecao");
-                $dataset = $recordset->fetch_all(MYSQLI_ASSOC);
-                $this->conn->close();
-                return $dataset;
-            }
-            return null;
+            return $this->fetchAllFromTable("colecao");
         }
 
         function getAllEventos() {
-            if($this->conn) {
-                $recordset = $this->conn->query("SELECT * FROM evento");
-                $dataset = $recordset->fetch_all(MYSQLI_ASSOC);
-                $this->conn->close();
-                return $dataset;
-            }
-            return null;
+            return $this->fetchAllFromTable("evento");
         }
 
         function getAllItens() {
-            if($this->conn) {
-                $recordset = $this->conn->query("SELECT * FROM item");
-                $dataset = $recordset->fetch_all(MYSQLI_ASSOC);
-                $this->conn->close();
-                return $dataset;
-            }
-            return null;
+            return $this->fetchAllFromTable("item");
         }
 
         function getAllClassificacaoEvento() {
-            if($this->conn) {
-                $recordset = $this->conn->query("SELECT * FROM classificacao_evento");
-                $dataset = $recordset->fetch_all(MYSQLI_ASSOC);
-                $this->conn->close();
-                return $dataset;
-            }
-            return null;
+            return $this->fetchAllFromTable("classificacao_evento");
         }
     }
 ?>

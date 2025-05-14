@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "DataAcessLayer.php";
+    include "DataAccessLayer.php";
 
     if (isset($_POST["submit"])) {
         $nome = $_POST["nome"];
@@ -40,8 +40,6 @@
             <div class="top-bar">
                 <div class="logo"><a href="index.php">Eventos</a></div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button>Search</button>
                 </div>
             </div>
             <nav class="navbar">
@@ -65,7 +63,7 @@
             <div class="below-navbar">
                 <h1>Eventos de Colecionadores</h1>
                 <p>Confira os eventos que já aconteceram e os que ainda estão por vir!</p>
-                <button id="openPopupBtn">Criar evento</button>
+                <button id="openPopupBtn" class="button-new-collection">Criar evento</button>
             </div>
 
             <hr class="colored-line">
@@ -135,22 +133,15 @@
                     </div>
                 </section>
             </section>
-        </main>
-    
-        <footer>
-            <hr class="colored-line">
-            <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo3.</p>
-        </footer>
 
-        <div id="popupForm" class="popup">
+            <div id="popupForm" class="popup hidden">
                 <div class="popup-content">
-                    <span class="close">&times;</span>
-                    <h2>Adicionar Evento</h2>
-
-                    <form method="post" enctype="multipart/form-data">
+                    <span class="close-btn">&times;</span>
+                    <h2>Login</h2>
+                    <form action="" method="POST" enctype="multipart/form-data">
                         <label for="nome">Nome do Evento:</label>
-                        <input type="text" name="nome" id="nome" required>
-
+                        <input type="text" name="nome" required />
+                        
                         <label for="descricao">Descrição:</label>
                         <textarea name="descricao" id="descricao" required></textarea>
 
@@ -173,13 +164,21 @@
                             }
                             ?>
                         </select>
-                        !-- usuário logado: oculto -->
+
                         <input type="hidden" name="utilizador_id" value="<?php echo $_SESSION['id']; ?>">
 
-                        <button type="submit" name="submit">Adicionar Evento</button>
+                        <button type="submit" name="submit">Salvar</button>
+                        <button type="button" id="closePopupBtn">Cancelar</button>
                     </form>
                 </div>
             </div>
+            
+        </main>
+    
+        <footer>
+            <hr class="colored-line">
+            <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo3.</p>
+        </footer>
 
         <script src="../java/script.js"></script>
     </body>

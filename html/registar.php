@@ -13,8 +13,6 @@
             <div class="top-bar">
                 <div class="logo""><a href="index.php">Coleção</a></div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button>Search</button>
                 </div>
             </div>
             <nav class="navbar">
