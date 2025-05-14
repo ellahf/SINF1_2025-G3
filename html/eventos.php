@@ -22,7 +22,7 @@ if (isset($_POST["submit"])) {
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo"><a href="index.html">Eventos</a></div>
+                <div class="logo"><a href="index.php">Eventos</a></div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search...">
                     <button>Search</button>

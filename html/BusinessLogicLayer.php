@@ -1,6 +1,8 @@
 <?php
     include "ligacao.php";
 
+    
+
     function adicionarEvento($mysqli, $dados, $file) {
         $imagem = $file["name"];
         $tmp = $file["tmp_name"];
@@ -40,5 +42,7 @@
     function excluirEvento($mysqli, $id) {
         return $mysqli->query("DELETE FROM evento WHERE cod_evento=$id");
     }
+
+
 
 ?>

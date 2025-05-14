@@ -11,7 +11,7 @@
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo" href="index.html">Portal do Colecionador</div>
+                <div class="logo" href="index.php">Portal do Colecionador</div>
                 <div class="search-bar">
                     <button id="openPopupBtn">Login</button>
                 </div>
@@ -59,8 +59,8 @@
         <main>
             <div class="below-navbar">
                 <h1 class="below-navbar-h1">Bem-vindo</h1>
-                
             </div>
+
             <hr class="colored-line">
             <section>
                 <div class="below-line">
