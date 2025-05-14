@@ -50,7 +50,7 @@
                         <a href="eventos.php">Eventos</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="colecoes.html">Coleções</a>
+                        <a href="colecoes.php">Coleções</a>
                     </li>
                 </ul>
             </nav>
