@@ -1,3 +1,30 @@
+<?php 
+    session_start();
+    var_dump($_SESSION);
+    include 'BusinessLogicLayer.php';    
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login_submit"])) {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+
+        $bll = new BLL();
+        $utilizador = $bll->autenticarUtilizador($email, $password);
+
+        if ($utilizador) {
+            $_SESSION["id"] = $utilizador["id"];
+            $_SESSION["utilizador"] = $utilizador;
+
+            header("Location: index.php");
+            exit();
+        } else {
+            $erroLogin = "Email ou palavra-passe incorretos.";
+        }
+    }
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -13,7 +40,12 @@
             <div class="top-bar">
                 <div class="logo" href="index.php">Portal do Colecionador</div>
                 <div class="search-bar">
-                    <button id="openPopupBtn">Login</button>
+                    <?php if (isset($_SESSION["utilizador"])): ?>
+                        <a href="perfil.php">Perfil</a>
+                    <?php else: ?>
+                        <button id="openPopupBtn">Login</button>
+                    <?php endif; ?>
+
                 </div>
             </div>
 
@@ -22,14 +54,14 @@
                 <div class="popup-content">
                     <span class="close-btn">&times;</span>
                     <h2>Login</h2>
-                    <form id="collectionForm">
+                    <form id="collectionForm" method="POST" action="index.php">
                         <label for="">Email:</label>
                         <input type="text" id="email" name="email" required>
 
                         <label for="descricaoColecao">Password:</label><br>
                         <input type="password" id="password" name="password" required>
 
-                        <button id="butaosubmit" type="submit" name="submitnavbar" value="submit">Login</button>
+                        <button id="butaosubmit" type="submit" name="login_submit" value="submit">Login</button>
                         <a style="color:black">Não tem conta?</a> <a href="registar.php">Registar</a>
                     </form>  
                 </div>
@@ -103,16 +135,12 @@
                     </section>
                 </div>
             </section>
-
-            
         </main>
         
         <footer>
             <hr class="colored-line">
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo3.</p>
         </footer>
-
-        
 
         <script src="../java/script.js"></script>
     </body> 

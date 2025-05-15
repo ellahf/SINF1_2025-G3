@@ -1,16 +1,24 @@
 <?php
+    session_start();
     include 'BusinessLogicLayer.php';
 
     $mensagem = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitnavbar"])) {
+        // Registo de utilizador
         $nome = $_POST["nome"];
         $data = $_POST["data"];
         $email = $_POST["email"];
-        $password = $_POST["senha"]; // Continua a usar o campo 'senha' no formulário
+        $password = $_POST["password"];
 
         $bll = new BLL();
         $mensagem = $bll->registarUtilizador($nome, $data, $email, $password);
+
+        // Se o registo for bem-sucedido, redireciona para index.php para fazer login
+        if (strpos($mensagem, 'sucesso') !== false) {
+            header("Location: index.php");
+            exit();
+        }
     }
 ?>
 
@@ -27,17 +35,17 @@
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo""><a href="index.php">Coleção</a></div>
+                <div class="logo""><a href="index.php">Registar</a></div>
                 <div class="search-bar">
                 </div>
             </div>
             <nav class="navbar">
                 <ul class="nav-links">
                     <li class="nav-item dropdown">
-                        <a href="miniaturasAuto.html">Miniaturas Automotivas</a>
+                        <a href="colecoes/miniaturasAuto.html">Miniaturas Automotivas</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="comicBooks.html">Comic Books</a>
+                        <a href="colecoes/comicBooks.html">Comic Books</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="eventos.html">Eventos</a>

@@ -22,13 +22,26 @@
                 return "A palavra-passe deve ter pelo menos 6 caracteres.";
             }
 
-            // Hashear a password
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-            // Inserir na base de dados (nome da coluna é 'password')
-            $sucesso = $this->dal->insertUtilizador($nome, $data_nascimento, $email, $passwordHash);
+            if ($sucesso = $this->dal->insertUtilizador($nome, $data_nascimento, $email, $passwordHash)) {
+                return "Registo feito!";
+            }
 
-            return $sucesso ? "Utilizador registado com sucesso!" : "Erro ao registar utilizador.";
+            return "Erro ao registar utilizador.";
+
+        }
+
+        public function autenticarUtilizador($email, $password) {
+            $utilizadores = $this->dal->getAllUtilizador();
+
+            foreach ($utilizadores as $utilizador) {
+                if ($utilizador['email'] === $email && $utilizador['password'] === $password) {
+                    return $utilizador;
+                }
+            }
+
+            return null;
         }
 
     }

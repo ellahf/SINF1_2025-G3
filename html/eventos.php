@@ -1,6 +1,13 @@
 <?php
     session_start();
     include "DataAccessLayer.php";
+    include 'BusinessLogicLayer.php';
+
+    // Verifica se o utilizador está logado
+    if (!isset($_SESSION["id"])) {
+        header("Location: index.php");
+        exit();
+    }
 
     if (isset($_POST["submit"])) {
         $nome = $_POST["nome"];
