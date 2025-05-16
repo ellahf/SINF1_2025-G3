@@ -1,25 +1,27 @@
 <?php
     session_start();
-    echo "Chegou ao index.php via POST? ";
-    var_dump($_SERVER['REQUEST_METHOD']);
-    var_dump($_POST);    
-    include 'BusinessLogicLayer.php';
+    require_once("DataAccessLayer.php");
 
-    $mensagem_login = "";
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login_submit"])) {
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login_submit"])) {
         $email = $_POST["email"];
         $password = $_POST["password"];
-        $bll = new BLL();
-        $mensagem_login = $bll->fazerLogin($email, $password);
 
-        if ($mensagem_login === true) {
-            header("Location: UserInterface/colecoes.php");
-            exit();
+        $dal = new DAL();
+        $utilizador = $dal->autenticarUtilizador($email, $password);
+
+        if ($utilizador) {
+            // Login bem-sucedido
+            $_SESSION["utilizador_id"] = $utilizador["id"];
+            $_SESSION["utilizador_nome"] = $utilizador["nome"];
+            echo "<script>alert('Login bem-sucedido!'); window.location.href='index.php';</script>";
+            exit;
+        } else {
+            // Falha no login
+            echo "<script>alert('Email ou senha incorretos.');</script>";
         }
-
     }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt">

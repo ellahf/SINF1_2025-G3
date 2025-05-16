@@ -46,14 +46,40 @@
         }
 
         function criarUtilizador($nome, $data_nascimento, $email, $password) {
-            if($this->conn) {
-                $theQuery = "INSERT INTO utilizador(nome, data_nascimento, email, password) 
-                    VALUES ('$nome', STR_TO_DATE('$data_nascimento', '%Y-%m-%d'), '$email', '$password')";
-
-                return ($this->conn->query($theQuery));
+            if ($this->conn) {
+                $senhaHash = password_hash($password, PASSWORD_DEFAULT);
+                $stmt = $this->conn->prepare("INSERT INTO utilizador (nome, data_nascimento, email, password) VALUES (?, STR_TO_DATE(?, '%Y-%m-%d'), ?, ?)");
+                $stmt->bind_param("ssss", $nome, $data_nascimento, $email, $senhaHash);
+                return $stmt->execute();
             }
             return false;
         }
+
+
+        function buscarUtilizadorPorEmail($email) {
+            $stmt = $this->conn->prepare("SELECT * FROM utilizador WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        }
+
+        function autenticarUtilizador($email, $password) {
+            // Preparar a query com bind seguro
+            $stmt = $this->conn->prepare("SELECT * FROM utilizador WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $utilizador = $result->fetch_assoc();
+
+            // Verifica se encontrou utilizador e se a password confere
+            if ($utilizador && password_verify($password, $utilizador['password'])) {
+                return $utilizador; // Login válido
+            }
+
+            return false; // Falha no login
+        }
+
 
 
     }
