@@ -55,16 +55,8 @@
             return false;
         }
 
-
-        function buscarUtilizadorPorEmail($email) {
-            $stmt = $this->conn->prepare("SELECT * FROM utilizador WHERE email = ?");
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            return $stmt->get_result()->fetch_assoc();
-        }
-
         function autenticarUtilizador($email, $password) {
-            $stmt = $this->conn->prepare("SELECT * FROM utilizador WHERE email = ?");
+            $stmt = $this->conn->prepare("SELECT * FROM utilizador WHERE email = ?y");
             $stmt->bind_param("s", $email);
             $stmt->execute();
 
@@ -75,10 +67,8 @@
                 return $utilizador;
             }
 
-            return false;
+            return "Fodasse esta merda";
         }
-
-
 
     }
 ?>
