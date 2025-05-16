@@ -73,16 +73,16 @@
                         <a href="index.php">Início</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="colecoes/miniaturasAuto.html">Miniaturas Automotivas</a>
+                        <a href="UI/colecoes/miniaturasAuto.html">Miniaturas Automotivas</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="colecoes/comicBooks.html">Comic Books</a>
+                        <a href="UserInterfacemicBooks.html">Comic Books</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="eventos.php">Eventos</a>
+                        <a href="UserInterface">Eventos</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="colecoes.php">Coleções</a>
+                        <a href="UserInterfacep">Coleções</a>
                     </li>
                 </ul>
             </nav>
@@ -101,15 +101,15 @@
                         <h2>Comic Books</h2>
                         <div class="collection-container">
                             <div class="collection-item">
-                                <img src="../imagens/comicBook1.jpg" alt="Comic Book - Avengers">
+                                <img src="UserInterface/imagens/comicBook1.jpg" alt="Comic Book - Avengers">
                                 <h3>Avengers</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="../imagens/comicBook2.jpg" alt="The X-Men">
+                                <img src="UserInterface/imagens/comicBook2.jpg" alt="The X-Men">
                                 <h3>The X-Men</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="../imagens/comicBook3.jpg" alt="Hulk & Batman">
+                                <img src="UserInterface/imagens/comicBook3.jpg" alt="Hulk & Batman">
                                 <h3>Hulk & Batman</h3>
                             </div>
                         </div>
@@ -120,15 +120,15 @@
                         <h2>Miniaturas de Automotivas</h2>
                         <div class="collection-container">
                             <div class="collection-item">
-                                <img src="../imagens/automotiva1.jpg" alt="Mini-cooper">
+                                <img src="UserInterface/imagens/automotiva1.jpg" alt="Mini-cooper">
                                 <h3>Mini-cooper</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="../imagens/automotiva2.jpg" alt="Volkswagen Fusca">
+                                <img src="UserInterface/imagens/automotiva2.jpg" alt="Volkswagen Fusca">
                                 <h3>Volkswagen Fusca</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="../imagens/automotiva3.jpg" alt="McLaren">
+                                <img src="UserInterface/imagens/automotiva3.jpg" alt="McLaren">
                                 <h3>McLaren</h3>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
             <p style="text-align: center;">&copy; 2025 Portal do Colecionador. Todos os direitos reservados - Grupo3.</p>
         </footer>
 
-        <script src="../java/script.js"></script>
+        <script src="java/script.js"></script>
     </body> 
 
 </html>

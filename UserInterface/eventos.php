@@ -45,7 +45,7 @@
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo"><a href="index.php">Eventos</a></div>
+                <div class="logo"><a href="../index.php">Eventos</a></div>
                 <div class="search-bar">
                 </div>
             </div>

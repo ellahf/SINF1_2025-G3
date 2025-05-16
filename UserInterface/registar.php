@@ -35,7 +35,7 @@
     <body>
         <header>
             <div class="top-bar">
-                <div class="logo""><a href="index.php">Registar</a></div>
+                <div class="logo""><a href="../index.php">Registar</a></div>
                 <div class="search-bar">
                 </div>
             </div>
