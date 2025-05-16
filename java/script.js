@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const popup = document.getElementById("popupForm");
   const openBtn = document.getElementById("openPopupBtn");
   const closeBtn = document.querySelector(".close-btn");
+  const form = document.getElementById("collectionForm");
 
   if (openBtn && popup) {
     openBtn.addEventListener("click", () => {
@@ -20,10 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // ⚠️ Forçar o envio do formulário ao clicar no botão
+  const submitBtn = document.getElementById("butaosubmit");
+  if (form && submitBtn) {
+    submitBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // Impede o envio normal
+      form.submit(); // Envia manualmente
+    });
+  }
 });
 
-
-  
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", function () {

@@ -1,29 +1,25 @@
-<?php 
+<?php
     session_start();
-    var_dump($_SESSION);
-    include 'BusinessLogicLayer.php';    
+    echo "Chegou ao index.php via POST? ";
+    var_dump($_SERVER['REQUEST_METHOD']);
+    var_dump($_POST);    
+    include 'BusinessLogicLayer.php';
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login_submit"])) {
+    $mensagem_login = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login_submit"])) {
         $email = $_POST["email"];
         $password = $_POST["password"];
-
         $bll = new BLL();
-        $utilizador = $bll->autenticarUtilizador($email, $password);
+        $mensagem_login = $bll->fazerLogin($email, $password);
 
-        if ($utilizador) {
-            $_SESSION["id"] = $utilizador["id"];
-            $_SESSION["utilizador"] = $utilizador;
-
-            header("Location: index.php");
+        if ($mensagem_login === true) {
+            header("Location: UserInterface/colecoes.php");
             exit();
-        } else {
-            $erroLogin = "Email ou palavra-passe incorretos.";
         }
+
     }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -32,7 +28,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Portal do Colecionador</title>
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
@@ -40,12 +36,7 @@
             <div class="top-bar">
                 <div class="logo" href="index.php">Portal do Colecionador</div>
                 <div class="search-bar">
-                    <?php if (isset($_SESSION["utilizador"])): ?>
-                        <a href="perfil.php">Perfil</a>
-                    <?php else: ?>
-                        <button id="openPopupBtn">Login</button>
-                    <?php endif; ?>
-
+                    <button id="openPopupBtn">Login</button>
                 </div>
             </div>
 
@@ -62,7 +53,7 @@
                         <input type="password" id="password" name="password" required>
 
                         <button id="butaosubmit" type="submit" name="login_submit" value="submit">Login</button>
-                        <a style="color:black">Não tem conta?</a> <a href="registar.php">Registar</a>
+                        <a style="color:black">Não tem conta?</a> <a href="UserInterface/registar.php">Registar</a>
                     </form>  
                 </div>
             </div>
@@ -73,16 +64,10 @@
                         <a href="index.php">Início</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="UI/colecoes/miniaturasAuto.html">Miniaturas Automotivas</a>
+                        <a href="UserInterface/colecoes.php">Coleções</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="UserInterfacemicBooks.html">Comic Books</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="UserInterface">Eventos</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="UserInterfacep">Coleções</a>
+                        <a href="UserInterface/eventos.php">Eventos</a>
                     </li>
                 </ul>
             </nav>
@@ -101,15 +86,15 @@
                         <h2>Comic Books</h2>
                         <div class="collection-container">
                             <div class="collection-item">
-                                <img src="UserInterface/imagens/comicBook1.jpg" alt="Comic Book - Avengers">
+                                <img src="imagens/comicBook1.jpg" alt="Comic Book - Avengers">
                                 <h3>Avengers</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="UserInterface/imagens/comicBook2.jpg" alt="The X-Men">
+                                <img src="imagens/comicBook2.jpg" alt="The X-Men">
                                 <h3>The X-Men</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="UserInterface/imagens/comicBook3.jpg" alt="Hulk & Batman">
+                                <img src="imagens/comicBook3.jpg" alt="Hulk & Batman">
                                 <h3>Hulk & Batman</h3>
                             </div>
                         </div>
@@ -120,15 +105,15 @@
                         <h2>Miniaturas de Automotivas</h2>
                         <div class="collection-container">
                             <div class="collection-item">
-                                <img src="UserInterface/imagens/automotiva1.jpg" alt="Mini-cooper">
+                                <img src="imagens/automotiva1.jpg" alt="Mini-cooper">
                                 <h3>Mini-cooper</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="UserInterface/imagens/automotiva2.jpg" alt="Volkswagen Fusca">
+                                <img src="imagens/automotiva2.jpg" alt="Volkswagen Fusca">
                                 <h3>Volkswagen Fusca</h3>
                             </div>
                             <div class="collection-item">
-                                <img src="UserInterface/imagens/automotiva3.jpg" alt="McLaren">
+                                <img src="imagens/automotiva3.jpg" alt="McLaren">
                                 <h3>McLaren</h3>
                             </div>
                         </div>

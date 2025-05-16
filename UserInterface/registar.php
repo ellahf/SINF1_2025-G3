@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'BusinessLogicLayer.php';
+    include '../BusinessLogicLayer.php';
 
     $mensagem = "";
 
@@ -16,7 +16,7 @@
 
         // Se o registo for bem-sucedido, redireciona para index.php para fazer login
         if (strpos($mensagem, 'sucesso') !== false) {
-            header("Location: index.php");
+            header("Location: ../index.php");
             exit();
         }
     }
@@ -56,7 +56,7 @@
 
         <br>
             <div class="below-navbar">
-                <h1>Login</h1>
+                <h1>Registar</h1>
             </div>
             <hr class="colored-line">
 

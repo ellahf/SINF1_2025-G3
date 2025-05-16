@@ -45,11 +45,12 @@
             return $this->fetchAllFromTable("classificacao_evento");
         }
 
-        public function insertUtilizador($nome, $data_nascimento, $email, $password) {
-            $stmt = $this->conn->prepare("INSERT INTO utilizador (nome, data_nascimento, email, password) VALUES (?, ?, ?, ?)");
-            if ($stmt) {
-                $stmt->bind_param("ssss", $nome, $data_nascimento, $email, $password);
-                return $stmt->execute();
+        function criarUtilizador($nome, $data_nascimento, $email, $password) {
+            if($this->conn) {
+                $theQuery = "INSERT INTO utilizador(nome, data_nascimento, email, password) 
+                    VALUES ('$nome', STR_TO_DATE('$data_nascimento', '%Y-%m-%d'), '$email', '$password')";
+
+                return ($this->conn->query($theQuery));
             }
             return false;
         }
