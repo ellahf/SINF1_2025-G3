@@ -64,7 +64,6 @@
         }
 
         function autenticarUtilizador($email, $password) {
-            // Preparar a query com bind seguro
             $stmt = $this->conn->prepare("SELECT * FROM utilizador WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
@@ -72,12 +71,11 @@
             $result = $stmt->get_result();
             $utilizador = $result->fetch_assoc();
 
-            // Verifica se encontrou utilizador e se a password confere
             if ($utilizador && password_verify($password, $utilizador['password'])) {
-                return $utilizador; // Login válido
+                return $utilizador;
             }
 
-            return false; // Falha no login
+            return false;
         }
 
 

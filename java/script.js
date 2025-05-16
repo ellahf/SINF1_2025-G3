@@ -21,15 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-  // ⚠️ Forçar o envio do formulário ao clicar no botão
-  const submitBtn = document.getElementById("butaosubmit");
-  if (form && submitBtn) {
-    submitBtn.addEventListener("click", function (e) {
-      e.preventDefault(); // Impede o envio normal
-      form.submit(); // Envia manualmente
-    });
-  }
+  
 });
 
 document.addEventListener("DOMContentLoaded", function () {

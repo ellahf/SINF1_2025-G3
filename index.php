@@ -1,18 +1,19 @@
 <?php
     session_start();
-    require_once("DataAccessLayer.php");
+    include "DataAccessLayer.php";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login_submit"])) {
-        $email = $_POST["email"];
-        $password = $_POST["password"];
+    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login_btn'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
         $dal = new DAL();
         $utilizador = $dal->autenticarUtilizador($email, $password);
 
+
         if ($utilizador) {
             // Login bem-sucedido
-            $_SESSION["utilizador_id"] = $utilizador["id"];
-            $_SESSION["utilizador_nome"] = $utilizador["nome"];
+            $_SESSION['utilizador_id'] = $utilizador['id'];
+            $_SESSION['utilizador_nome'] = $utilizador['nome'];
             echo "<script>alert('Login bem-sucedido!'); window.location.href='index.php';</script>";
             exit;
         } else {
@@ -45,18 +46,19 @@
             <!-- O Popup -->
             <div id="popupForm" class="popup">
                 <div class="popup-content">
-                    <span class="close-btn">&times;</span>
-                    <h2>Login</h2>
                     <form id="collectionForm" method="POST" action="index.php">
-                        <label for="">Email:</label>
+                        <span class="close-btn">&times;</span>
+                        <h2>Login</h2>
+                        <label for="email">Email:</label>
                         <input type="text" id="email" name="email" required>
 
-                        <label for="descricaoColecao">Password:</label><br>
+                        <label for="password">Password:</label><br>
                         <input type="password" id="password" name="password" required>
 
-                        <button id="butaosubmit" type="submit" name="login_submit" value="submit">Login</button>
+                        <button id="botaosubmit" type="submit" name="login_btn" value="1">Login</button>
+                        <br><br>
                         <a style="color:black">Não tem conta?</a> <a href="UserInterface/registar.php">Registar</a>
-                    </form>  
+                    </form>
                 </div>
             </div>
 

@@ -1,15 +1,15 @@
 <?php
     session_start();
-    include '../BusinessLogicLayer.php';
+    include "../BusinessLogicLayer.php";
 
     $mensagem = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitnavbar"])) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submitnavbar'])) {
         // Registo de utilizador
-        $nome = $_POST["nome"];
-        $data = $_POST["data"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
+        $nome = $_POST['nome'];
+        $data = $_POST['data'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
         $bll = new BLL();
         $mensagem = $bll->registarUtilizador($nome, $data, $email, $password);
