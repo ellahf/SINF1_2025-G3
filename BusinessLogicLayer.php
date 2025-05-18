@@ -32,6 +32,55 @@
 
         }
 
+        function obterTodasColecoes() {
+            return $this->dal->getAllColecoes();
+        }
+
+        function setDropBoxOptionsColecao() {
+            try {
+                $colecoes = $this->dal->getAllColecoes(); 
+                foreach ($colecoes as $colecao) {
+                    echo "<option value='" . $colecao["colecoes_id"] . "'>" . $colecao["nome"] . "</option>";
+                }
+            } catch (RuntimeException $e) {
+                echo "<option value='ERR'>" . $e->getMessage() . "</option>";
+            }
+        }
+
+        function obterTodosEventos() {
+            return $this->dal->getAllEventos();
+        }
+
+        function criarColecao($nome, $tipo, $imagem) {
+            return $this->dal->criarColecao($nome, $tipo, $imagem);
+        }
+
+
+        function apagarColecao($colecoes_id) {
+            return $this->dal->deletarColecao($colecoes_id);
+        }
+
+        function editarColecao($colecao_id, $nome, $tipo, $imagem = null) {
+            return $this->dal->editarColecao($colecao_id, $nome, $tipo, $imagem);
+        }
+
+        function setDropBoxOptionsEventos() {
+            try {
+                $eventos = $this->dal->getAllEventos(); 
+                foreach ($eventos as $evento) {
+                    echo "<option value='" . $evento["evento_id"] . "'>" . $evento["nome"] . "</option>";
+                }
+            } catch (RuntimeException $e) {
+                echo "<option value='ERR'>" . $e->getMessage() . "</option>";
+            }
+        }
+
+        function ordenarColecaoPorNome(array &$colecoes, string $campo = 'nome'): void {
+            usort($colecoes, function($a, $b) use ($campo) {
+                return strcmp($a[$campo], $b[$campo]);
+            });
+        }
+
     }
 
 ?>

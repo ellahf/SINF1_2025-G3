@@ -4,7 +4,7 @@
 
     $mensagem = "";
 
-    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submitnavbar'])) {
+    if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['submitnavbar'])) {
         // Registo de utilizador
         $nome = $_POST['nome'];
         $data = $_POST['data'];
