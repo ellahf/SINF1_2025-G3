@@ -78,8 +78,8 @@
         function criarEvento($nome, $descricao, $localizacao, $data, $imagem, $colecoes_id) {
             if ($this->conn) {
                 $stmt = $this->conn->prepare("
-                    INSERT INTO evento (nome, descricao, localizacao, data, imagem, colecoes_id, utilizador_id) 
-                    VALUES (?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, ?, ?)
+                    INSERT INTO evento (nome, descricao, localizacao, data, imagem, colecoes_id) 
+                    VALUES (?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, ?)
                 ");
                 $stmt->bind_param("sssssi", $nome, $descricao, $localizacao, $data, $imagem, $colecoes_id);
                 return $stmt->execute();
@@ -87,10 +87,10 @@
             return false;
         }
 
-        function deletarEvento($colecoes_id) {
+        function deletarEvento($evento_id) {
             if ($this->conn) {
-                $stmt = $this->conn->prepare("DELETE FROM evento WHERE id = ?");
-                $stmt->bind_param("i", $colecoes_id);
+                $stmt = $this->conn->prepare("DELETE FROM evento WHERE evento_id = ?");
+                $stmt->bind_param("i", $evento_id);
                 return $stmt->execute();
             }
             return false;
@@ -132,7 +132,72 @@
             return false;
         }
 
+        function obterNomeColecaoPorId($colecoes_id) {
+            $query = "SELECT nome FROM colecao WHERE colecoes_id = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("i", $colecoes_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
 
+            return $row ? $row['nome'] : 'Coleção desconhecida';
+        }
+
+        function editarEvento($evento_id, $nome, $descricao, $data, $localizacao, $colecoes_id, $imagem = null) {
+            if ($this->conn) {
+                if ($imagem) {
+                    $stmt = $this->conn->prepare("UPDATE evento SET nome = ?, descricao = ?, data = ?, localizacao = ?, imagem = ?, colecoes_id = ? WHERE evento_id = ?");
+                    $stmt->bind_param("ssssssi", $nome, $descricao, $data, $localizacao, $imagem, $colecoes_id, $evento_id);
+                } else {
+                    $stmt = $this->conn->prepare("UPDATE evento SET nome = ?, descricao = ?, data = ?, localizacao = ?, colecoes_id = ? WHERE evento_id = ?");
+                    $stmt->bind_param("ssssii", $nome, $descricao, $data, $localizacao, $colecoes_id, $evento_id);
+                }
+
+                return $stmt->execute();
+            }
+            return false;
+        }
+
+        public function criarItem($colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem) {
+            if ($this->conn) {
+                $stmt = $this->conn->prepare("INSERT INTO item (colecao_id, nome, descricao, importancia, peso, preco, data_aquisicao, imagem) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("isssddss", $colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem);
+                return $stmt->execute();
+            }
+            return false;
+        }
+
+        public function editarItem($item_id, $colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem = null) {
+            if ($this->conn) {
+                if ($imagem) {
+                    $stmt = $this->conn->prepare("UPDATE item SET colecao_id = ?, nome = ?, descricao = ?, importancia = ?, peso = ?, preco = ?, data_aquisicao = ?, imagem = ? WHERE item_id = ?");
+                    $stmt->bind_param("issiidssi", $colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem, $item_id);
+                } else {
+                    $stmt = $this->conn->prepare("UPDATE item SET colecao_id = ?, nome = ?, descricao = ?, importancia = ?, peso = ?, preco = ?, data_aquisicao = ? WHERE item_id = ?");
+                    $stmt->bind_param("issiidsi", $colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $item_id);
+                }
+
+                return $stmt->execute();
+            }
+            return false;
+        }
+
+        public function deletarItem($item_id) {
+            if ($this->conn) {
+                $stmt = $this->conn->prepare("DELETE FROM item WHERE item_id = ?");
+                $stmt->bind_param("i", $item_id);
+                return $stmt->execute();
+            }
+            return false;
+        }
+
+        function obterColecaoPorId($colecao_id) {
+            $stmt = $this->conn->prepare("SELECT * FROM colecao WHERE colecoes_id = ?");
+            $stmt->bind_param("i", $colecao_id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            return $resultado->fetch_assoc();
+        }
 
     }
 ?>

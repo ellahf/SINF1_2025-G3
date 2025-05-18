@@ -68,7 +68,7 @@
                     <label for="nome">Nome:</label>
                     <input type="text" id="nome" name="nome" required>
 
-                    <label for="data">Data:</label>
+                    <label for="data">Data de Nascimento:</label>
                     <input type="date" id="data" name="data" required>
             
                     <label for="email">Email:</label>

@@ -31,17 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".delete-btn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const confirmar = confirm("Deseja apagar este item?");
-      if (confirmar) {
-        const card = this.closest(".collection-item");
-        if (card) card.remove();
-      }
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteButtons = document.querySelectorAll(".delete-btn");
+
+  if (deleteButtons.length > 0) {
+    deleteButtons.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const confirmar = confirm("Deseja apagar este item?");
+        if (confirmar) {
+          const card = this.closest(".collection-item");
+          if (card) card.remove();
+        }
+      });
     });
-  });
+  }
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const stars = document.querySelectorAll(".star");
@@ -78,11 +83,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const linkMostrarRegistro = document.getElementById("mostrar-registro");
     const formularioRegistro = document.querySelector(".register-form-section");
 
-    linkMostrarRegistro.addEventListener("click", function (e) {
-        e.preventDefault(); // impede o comportamento padrão do link
-        formularioRegistro.style.display = "block";
-        formularioRegistro.scrollIntoView({ behavior: "smooth" });
-    });
+    if (linkMostrarRegistro && formularioRegistro) {
+        linkMostrarRegistro.addEventListener("click", function (e) {
+            e.preventDefault();
+            formularioRegistro.style.display = "block";
+            formularioRegistro.scrollIntoView({ behavior: "smooth" });
+        });
+    }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -100,6 +107,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const showBtn = document.getElementById("showCreateEventForm");
+  const createForm = document.getElementById("createEventForm");
+
+  if (showBtn && createEventForm) {
+    showBtn.addEventListener("click", () => {
+      createForm.style.display = "block";
+    });
+
+    createForm.addEventListener("submit", (event) => {
+      createForm.style.display = "none";
+    });
+  }
+});
+
 document.querySelectorAll('.editBtn').forEach(button => {
     button.addEventListener('click', () => {
         document.getElementById('edit_id').value = button.dataset.id;
@@ -110,16 +132,22 @@ document.querySelectorAll('.editBtn').forEach(button => {
     });
 });
 
-document.getElementById('closeEditPopupBtn').addEventListener('click', () => {
-    document.getElementById('editPopupForm').style.display = 'none';
+document.addEventListener("DOMContentLoaded", function () {
+    const closeBtn = document.getElementById('closeEditPopupBtn');
+    const editForm = document.getElementById('editPopupForm');
+
+    if (closeBtn && editForm) {
+        closeBtn.addEventListener('click', () => {
+            editForm.style.display = 'none';
+        });
+    }
 });
 
 function abrirModalEdicao(id, nome, tipo, imagem) {
-  console.log("Modal aberto");
   document.getElementById("edit-id").value = id;
   document.getElementById("edit-nome").value = nome;
   document.getElementById("edit-tipo").value = tipo;
-  document.getElementById("edit-imagem").value = imagem;
+  document.getElementById("edit-imagem").value = "";
   document.getElementById("modal-editar-colecao").style.display = "block";
 }
 
@@ -134,49 +162,60 @@ window.onclick = function(event) {
   }
 }
 
+
+function abrirModalEdicaoEvento(evento_id, nome, descricao, data, localizacao, imagem, colecoes_id) {
+  console.log("Abrindo modal com:", evento_id, nome); // Teste no console
+  document.getElementById("edit-evento-id").value = evento_id;
+  document.getElementById("edit-nome").value = nome;
+  document.getElementById("edit-descricao").value = descricao;
+  document.getElementById("edit-data").value = data;
+  document.getElementById("edit-localizacao").value = localizacao;
+  document.getElementById("edit-localizacao").value = "";
+  document.getElementById("edit-colecoes-id").value = colecoes_id;
+  document.getElementById("modal-editar-evento").style.display = "block";
+}
+
+function fecharModalEdicaoEvento() {
+  document.getElementById("modal-editar-evento").style.display = "none";
+}
+
+
+window.onclick = function(event) {
+  const modal = document.getElementById("modal-editar-evento");
+  if (event.target == modal) {
+    fecharModalEdicaoEvento();
+  }
+}
+
+document.getElementById("mostrarFormularioItem").addEventListener("click", function () {
+    const form = document.getElementById("formularioItem");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+});
+
+function abrirModalEdicaoItem(item_id, nome, descricao, importancia, peso, preco, data_aquisicao, colecao_id) {
+  document.getElementById("edit-item-id").value = item_id;
+  document.getElementById("edit-nome").value = nome;
+  document.getElementById("edit-descricao").value = descricao;
+  document.getElementById("edit-importancia").value = importancia;
+  document.getElementById("edit-peso").value = peso;
+  document.getElementById("edit-preco").value = preco;
+  document.getElementById("edit-data").value = data_aquisicao;
+  document.getElementById("edit-colecao-id").value = colecao_id;
+
+  document.getElementById("modal-editar-item").style.display = "block";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const openCreateEventBtn = document.getElementById("openCreateEventBtn");
-  const modal = document.getElementById("modal-editar-colecao");
-  const closeCreateEventBtn = document.getElementById("closeCreateEventBtn");
-  const createEventForm = document.getElementById("createEventForm");
+  const showBtn = document.getElementById("showDeleteFormBtn");
+  const deleteForm = document.getElementById("deleteItemForm");
 
-  openCreateEventBtn.addEventListener("click", () => {
-    abrirModalCriarEvento();
-  });
+  if (showBtn && deleteForm) {
+    showBtn.addEventListener("click", () => {
+      deleteForm.style.display = "block";
+    });
 
-  closeCreateEventBtn.addEventListener("click", () => {
-    fecharModalCriarEvento();
-  });
-
-  // Fecha modal se clicares fora do conteúdo
-  window.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      fecharModalCriarEvento();
-    }
-  });
-
-  function abrirModalCriarEvento() {
-    // Limpar campos
-    document.getElementById("create-evento-id").value = '';
-    document.getElementById("create-nome").value = '';
-    document.getElementById("create-descricao").value = '';
-    document.getElementById("create-localizacao").value = '';
-    document.getElementById("create-data").value = '';
-    document.getElementById("create-imagem").value = '';
-    document.getElementById("create-colecoes_id").value = '';
-
-    modal.style.display = "flex";
+    deleteForm.addEventListener("submit", (event) => {
+      deleteForm.style.display = "none";
+    });
   }
-
-  function fecharModalCriarEvento() {
-    modal.style.display = "none";
-  }
-
-  // Podes colocar o submit do form aqui (com AJAX ou submit normal)
-  createEventForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // Exemplo simples: fechar modal após submit
-    alert("Evento guardado (aqui implementa a tua lógica!)");
-    fecharModalCriarEvento();
-  });
 });

@@ -38,7 +38,7 @@
 
         function setDropBoxOptionsColecao() {
             try {
-                $colecoes = $this->dal->getAllColecoes(); 
+                $colecoes = $this->dal->getAllColecoes();
                 foreach ($colecoes as $colecao) {
                     echo "<option value='" . $colecao["colecoes_id"] . "'>" . $colecao["nome"] . "</option>";
                 }
@@ -79,6 +79,49 @@
             usort($colecoes, function($a, $b) use ($campo) {
                 return strcmp($a[$campo], $b[$campo]);
             });
+        }
+
+        function criarEvento($nome, $descricao, $localizacao, $data, $imagem, $colecoes_id) {
+            return $this->dal->criarEvento($nome, $descricao, $localizacao, $data, $imagem, $colecoes_id);
+        }
+
+        function apagarEvento($evento_id) {
+            return $this->dal->deletarEvento($evento_id);
+        }
+
+        function obterNomeColecaoPorId($colecao_id) {
+            return $this->dal->obterNomeColecaoPorId($colecao_id);
+        }
+
+        public function editarEvento($evento_id, $nome, $descricao, $data, $localizacao, $colecoes_id, $imagem = null) {
+            return $this->dal->editarEvento($evento_id, $nome, $descricao, $data, $localizacao, $colecoes_id, $imagem);
+        }
+
+        public function criarItem($colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem) {
+            return $this->dal->criarItem($colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem);
+        }
+
+        public function obterTodosItens() {
+            return $this->dal->getAllItens();
+        }
+
+        public function editarItem($item_id, $colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem = null) {
+            return $this->dal->editarItem($item_id, $colecao_id, $nome, $descricao, $importancia, $peso, $preco, $data_aquisicao, $imagem);
+        }
+
+        function apagarItem($item_id) {
+            return $this->dal->deletarItem($item_id);
+        }
+
+        function setDropBoxOptionsItens() {
+            try {
+                $itens = $this->dal->getAllItens(); 
+                foreach ($itens as $item) {
+                    echo "<option value='" . $item["item_id"] . "'>" . $item["nome"] . "</option>";
+                }
+            } catch (RuntimeException $e) {
+                echo "<option value='ERR'>" . $e->getMessage() . "</option>";
+            }
         }
 
     }
